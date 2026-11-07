@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<defs><radialGradient id="jade"><stop stop-color="#a4bbaa"/><stop offset="1" stop-color="#426f66"/></radialGradient><radialGradient id="red"><stop stop-color="#d38a50"/><stop offset="1" stop-color="#963f2d"/></radialGradient></defs>
+<g stroke="#d8b478" stroke-width="1.2" stroke-linejoin="round">
+<g fill="url(#jade)">
+<path id="p" d="M32 32C19 26 19 16 25 12Q31 11 32 3Q33 11 39 12C45 16 45 26 32 32Z"/>
+<use href="#p" transform="rotate(45 32 32)"/><use href="#p" transform="rotate(90 32 32)"/><use href="#p" transform="rotate(135 32 32)"/><use href="#p" transform="rotate(180 32 32)"/><use href="#p" transform="rotate(225 32 32)"/><use href="#p" transform="rotate(270 32 32)"/><use href="#p" transform="rotate(315 32 32)"/>
+</g>
+<g fill="url(#red)">
+<path id="q" d="M32 33Q21 26 26 19Q31 20 32 12Q33 20 38 19Q43 26 32 33Z"/>
+<use href="#q" transform="rotate(72 32 32)"/><use href="#q" transform="rotate(144 32 32)"/><use href="#q" transform="rotate(216 32 32)"/><use href="#q" transform="rotate(288 32 32)"/>
+</g>
+<circle cx="32" cy="32" r="7" fill="#dcb878"/><circle cx="32" cy="32" r="3" fill="#ffedbd" stroke="#b47d3d"/>
+</g></svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 562.5"><defs><symbol id="lotus" viewBox="0 0 64 64">
+<defs><radialGradient id="jade"><stop stop-color="#a4bbaa"/><stop offset="1" stop-color="#426f66"/></radialGradient><radialGradient id="red"><stop stop-color="#d38a50"/><stop offset="1" stop-color="#963f2d"/></radialGradient></defs>
+<g stroke="#d8b478" stroke-width="1.2" stroke-linejoin="round">
+<g fill="url(#jade)">
+<path id="p" d="M32 32C19 26 19 16 25 12Q31 11 32 3Q33 11 39 12C45 16 45 26 32 32Z"/>
+<use href="#p" transform="rotate(45 32 32)"/><use href="#p" transform="rotate(90 32 32)"/><use href="#p" transform="rotate(135 32 32)"/><use href="#p" transform="rotate(180 32 32)"/><use href="#p" transform="rotate(225 32 32)"/><use href="#p" transform="rotate(270 32 32)"/><use href="#p" transform="rotate(315 32 32)"/>
+</g>
+<g fill="url(#red)">
+<path id="q" d="M32 33Q21 26 26 19Q31 20 32 12Q33 20 38 19Q43 26 32 33Z"/>
+<use href="#q" transform="rotate(72 32 32)"/><use href="#q" transform="rotate(144 32 32)"/><use href="#q" transform="rotate(216 32 32)"/><use href="#q" transform="rotate(288 32 32)"/>
+</g>
+<circle cx="32" cy="32" r="7" fill="#dcb878"/><circle cx="32" cy="32" r="3" fill="#ffedbd" stroke="#b47d3d"/>
+</g></symbol></defs><rect x="9" y="9" width="982" height="544.5" rx="16" fill="none" stroke="#683a29" stroke-width="10"/><rect x="9" y="9" width="982" height="544.5" rx="16" fill="none" stroke="#d2ac68" stroke-width="3"/><rect x="17" y="17" width="966" height="528.5" rx="10" fill="none" stroke="#eed29a" stroke-width="1.2"/><g fill="none" stroke="#c6a36b" stroke-width="2"><path d="M35 78Q76 78 78 35M922 35Q924 78 965 78M35 484.5Q76 484.5 78 527.5M922 527.5Q924 484.5 965 484.5"/></g><use href="#lotus" x="-18" y="-18" width="80" height="80"/><use href="#lotus" x="938" y="-18" width="80" height="80"/><use href="#lotus" x="-18" y="500.5" width="80" height="80"/><use href="#lotus" x="938" y="500.5" width="80" height="80"/></svg>

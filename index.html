@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#140d0d">
+  <meta name="description" content="《御笔之下》——一笔落定，万象更生。古风帝王成长故事。">
+  <title>御笔之下</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23231a17'/%3E%3Ctext x='32' y='46' font-size='44' text-anchor='middle' fill='%23d9b66d' font-family='serif'%3E御%3C/text%3E%3C/svg%3E">
+  <link rel="preload" href="assets/cover.png" as="image">
+  <link rel="preload" href="assets/title.png" as="image">
+  <link rel="preload" href="assets/imperial-study-entrance-v1.png" as="image">
+  <link rel="preload" href="assets/spring-study-clean-v1.png" as="image">
+  <link rel="preload" href="assets/dialogue-frame-dunhuang-v1.png" as="image">
+  <link rel="stylesheet" href="style.css?v=20261108-forward-label-19">
+</head>
+<body>
+  <main id="game">
+    <section id="cover" class="screen cover" aria-label="御笔之下游戏封面">
+      <div class="cover-art" aria-hidden="true"></div>
+      <div class="cover-shade" aria-hidden="true"></div>
+      <div class="cover-grain" aria-hidden="true"></div>
+      <div class="corner corner-tl" aria-hidden="true"></div><div class="corner corner-tr" aria-hidden="true"></div>
+      <div class="edition"><span class="edition-seal">御</span><span>初习朱批<span class="edition-rule"></span>第一篇</span></div>
+      <button id="fullscreen" class="utility" aria-label="进入全屏" title="进入全屏"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></button>
+      <canvas id="gold-dust" aria-hidden="true"></canvas>
+      <div class="cover-content">
+        <h1 class="title-wrap"><img src="assets/title.png" alt="御笔之下" width="2172" height="724"><span class="title-glint" aria-hidden="true"></span></h1>
+        <div class="entry-rule" aria-hidden="true"><i></i><span>◆</span><i></i></div>
+        <button id="enter" class="enter-button"><span class="enter-line"></span><span>点击屏幕进入游戏</span><span class="enter-line"></span></button>
+      </div>
+    </section>
+
+    <section id="identity" class="screen identity" hidden aria-labelledby="identity-heading">
+      <video class="identity-intro" muted playsinline preload="metadata" aria-hidden="true" src="assets/identity-light-reference.mp4"></video>
+      <div class="identity-light" aria-hidden="true"></div>
+      <button id="replay-identity" class="replay-identity">↻ 重看花开</button>
+      <button class="back-button" data-home><span aria-hidden="true">←</span> 返回封面</button>
+      <header class="identity-header"><p>御 笔 之 下</p><h2 id="identity-heading">一 花 双 生 · 择 定 此 身</h2><span>花开两枝，执笔写下你的命途</span><small class="identity-story-note">性别不影响剧情，男女身份的剧情内容一致。</small></header>
+      <div class="identity-choices" role="group" aria-label="选择主角身份">
+        <button class="identity-card" data-identity="female" aria-pressed="false" aria-label="选择女线，公主">
+          <span class="portrait-stage female-portrait"><img src="assets/hero-female-transparent-v1.png" alt="青年公主立绘" width="1086" height="1448" draggable="false"><span class="portrait-silhouette" aria-hidden="true"></span><span class="portrait-shine" aria-hidden="true"></span></span>
+          <span class="identity-caption"><span class="identity-name">公主</span><span class="identity-line">女线</span><span class="identity-reveal-hint">点击显影</span></span>
+          <span class="identity-check" aria-hidden="true">◆</span>
+        </button>
+        <span class="identity-separator" aria-hidden="true"><i></i>择<i></i></span>
+        <button class="identity-card" data-identity="male" aria-pressed="false" aria-label="选择男线，皇子">
+          <span class="portrait-stage male-portrait"><img src="assets/hero-male-transparent-v1.png" alt="青年皇子立绘" width="1086" height="1448" draggable="false"><span class="portrait-silhouette" aria-hidden="true"></span><span class="portrait-shine" aria-hidden="true"></span></span>
+          <span class="identity-caption"><span class="identity-name">皇子</span><span class="identity-line">男线</span><span class="identity-reveal-hint">点击显影</span></span>
+          <span class="identity-check" aria-hidden="true">◆</span>
+        </button>
+      </div>
+      <div class="identity-actions">
+        <p id="identity-status" role="status" aria-live="polite">请选择你将扮演的身份</p>
+        <div class="identity-action-row"><button id="confirm-identity" class="gold-button" disabled>请先选择身份</button><button id="choose-female" class="choose-female" hidden>改选女线 <span aria-hidden="true">→</span></button></div>
+      </div>
+    </section>
+
+    <section id="naming" class="screen naming" hidden aria-labelledby="naming-heading">
+      <button id="back-to-identity" class="back-button" aria-label="返回选择身份">←</button>
+      <div class="naming-portrait" aria-hidden="true"><img src="assets/hero-female-transparent-v1.png" alt=""></div>
+      <div class="naming-content"><h2 id="naming-heading">写下你的名字</h2>
+        <form id="naming-form" novalidate><div class="name-input-wrap"><input id="character-name" name="characterName" type="text" maxlength="4" autocomplete="off" spellcheck="false" aria-label="名字" aria-describedby="name-help name-error" required><span id="name-length" aria-hidden="true">0 / 4</span></div><p id="name-help">1—4个汉字</p><p id="name-error" role="alert"></p><button id="confirm-name" class="gold-button" type="submit" disabled>确认</button></form>
+      </div>
+    </section>
+
+    <section id="prologue" class="screen prologue" hidden aria-label="故事序言">
+      <div class="prologue-copy">
+        <p>架空王朝，年号承平，母皇在位二十七年，身体有积劳之症，朝野皆知。</p>
+        <p>你是长公主，亦是当今储君，第一年跟着母皇学批红。在不久的将来，你会成为下一个女帝……</p>
+        <button id="continue-prologue" class="prologue-continue" type="button">继续 →</button>
+      </div>
+    </section>
+
+    <section id="year-interlude" class="screen prologue year-interlude" hidden aria-label="第一年结束">
+      <div class="prologue-copy"><p>因为本次比赛时间实在有限，第一年奏折部分剧情跳过，直接进入第二年。你在一年的学习中逐渐了解了当朝局势，而母皇的病情恶化使你不得不提前接手朝堂大权，接下来要面对的是更严峻的挑战……</p><button id="continue-year-interlude" class="prologue-continue" type="button">进入第二年 →</button></div>
+    </section>
+    <section id="year-mission" class="screen prologue year-mission" hidden aria-label="第二年任务">
+      <div class="prologue-copy"><p class="year-number">第二年</p><h2>今年任务</h2><p class="year-objective">削弱旧臣大权</p><button id="continue-year-mission" class="prologue-continue" type="button">继续 →</button></div>
+    </section>
+
+    <section id="opening-film" class="screen opening-film" hidden aria-label="开场剧情视频">
+      <video id="opening-film-video" playsinline preload="metadata" aria-label="开场剧情动画"><source src="assets/opening-film-h264-v2.mp4" type="video/mp4"></video>
+      <button id="play-opening-film" type="button" hidden>点击播放</button>
+    </section>
+
+    <section id="map-intro-film" class="screen opening-film" hidden aria-label="第二年舆图展开动画">
+      <video id="map-intro-video" playsinline muted autoplay preload="auto" aria-label="青绿山水舆图卷轴展开"><source src="assets/map-intro-compatible-v2.mp4" type="video/mp4"></video>
+      <button id="play-map-intro" class="film-play-button" type="button" hidden>点击播放</button>
+    </section>
+
+    <section id="official-preview" class="screen official-preview" hidden aria-label="正式版预告">
+      <video id="official-preview-video" playsinline muted preload="auto" aria-label="御笔之下正式版预告影片"><source src="assets/official-preview-h264-v1.mp4" type="video/mp4"></video>
+      <img class="official-preview-lettering" src="assets/official-preview-lettering-v1.png" alt="正式版预告">
+      <button id="play-official-preview" class="film-play-button" type="button" hidden>点击播放</button>
+      <button id="preview-sound" class="preview-sound" type="button" aria-label="开启预告声音" title="开启预告声音">♫</button>
+    </section>
+    <section id="title-finale" class="screen title-finale" hidden aria-label="御笔之下 · 正式版预告片尾">
+      <canvas id="finale-particles" aria-hidden="true"></canvas>
+      <img id="finale-title" src="assets/title.png" alt="御笔之下">
+      <button id="continue-finale" class="finale-home">继续 →</button>
+    </section>
+
+    <section id="epilogue-one" class="screen epilogue-page" hidden aria-label="初版结语 · 第一页">
+      <article class="epilogue-copy">
+        <p>承平二十八年的四季，至此告一段落。</p>
+        <p>从第一次执起朱笔，到学着在钱粮、吏治、边防与朝堂势力之间作出取舍，你已不再只是旁观奏折的人。每一道批示，都曾牵动百姓生计、朝局消长，也让你逐渐看清：治国从来没有轻易的答案。</p>
+        <p>而这，也只是故事的开始。</p>
+        <button id="continue-epilogue" class="prologue-continue">继续 →</button>
+      </article>
+    </section>
+    <section id="epilogue-two" class="screen epilogue-page" hidden aria-label="初版结语 · 第二页">
+      <article class="epilogue-copy">
+        <p>眼前呈现的，是《御笔之下》的初版。未来，我们将继续拓展登基之后的剧情，带你走进顾裴谢陆四大家族的权力博弈，收回分散已久的皇权，完成太后未竟的改革事业，应对关乎国家兴亡的边疆危机......更多人物、情节，更广阔的世界，都将在后续更新中陆续展开。你的每一次选择，都将影响朝局走向，并通往不同的结局。</p>
+        <p>感谢你陪伴这位储君走过初执朱笔的前两年。新的奏折尚未送达，新的故事仍在书写。</p>
+        <p>待你再次执笔之时，天下，便有了新的答案。</p>
+        <nav class="epilogue-actions"><button id="previous-epilogue" class="epilogue-back">← 上一页</button><button class="prologue-continue" data-home>返回封面</button></nav>
+      </article>
+    </section>
+
+    <section id="companion-intro" class="screen companion-intro" hidden aria-labelledby="companion-intro-name">
+      <img class="companion-intro-portrait" src="assets/companion-female-transparent-v1.png" alt="路清河，手持卷轴，含笑望向你">
+      <article class="companion-intro-copy"><p class="companion-intro-role">伴 读 · 老 师 · 朋 友</p><h2 id="companion-intro-name">路清河</h2>
+        <div class="companion-intro-prose">
+          <p>路清河常侍御前，替母皇整理章奏、草拟诏令，也陪储君读书习政。朝臣眼中，她是陛下倚重的近臣；于你而言，她是那个会轻叩书案，将你从瞌睡中唤醒的人。</p>
+          <p>母皇命她辅佐你，她便认真教你如何辨人用人，如何接住即将交到手中的权柄。可她所期待的，并非另一个事事遵循母皇旧例的君主。她想看着你亲手作出决定。</p>
+          <p>她是你的伴读、老师，也是朋友。待有一日，你终于能独自面对满朝臣子，她仍会站在你身侧，等你说完自己的主张。</p>
+        </div>
+      </article>
+      <button id="continue-companion-intro" class="gold-button companion-intro-continue">继续 →</button>
+    </section>
+
+    <section id="governance" class="screen governance" hidden aria-label="书房政务主界面">
+      <div class="governance-stage">
+        <div class="governance-scenery" aria-hidden="true"></div>
+        <div class="hub-character"><img src="assets/companion-female-transparent-v1.png" alt="路清河，站在书桌另一侧，手持卷轴"></div>
+        <header class="player-hud"><div class="hud-avatar"><img src="assets/hero-female-transparent-v1.png" alt="女主头像"></div><div class="player-caption"><h2 id="player-name">未命名</h2><p>当前身份：<span id="player-role">储君</span></p></div></header>
+        <aside class="year-hud" aria-label="年份、季度与政务进度"><p id="year-progress">第一年 · 春 · 事件一</p><div class="quarter-axis" id="quarter-axis"></div></aside>
+        <div id="map-guide" class="map-guide" hidden><p>点击地图，查看各方势力的新数值<span aria-hidden="true">↓</span></p></div>
+        <div id="memorial-notice" class="memorial-notice" role="status" hidden><span aria-hidden="true">奏</span>收到了新的奏折</div>
+        <button id="read-memorial" class="memorial-trigger">批阅奏折</button>
+        <button id="desk-map" class="desk-map" hidden aria-label="查看地图"><img src="assets/factions-map-v1.jpeg" alt="书桌上展开的舆图"><span>查看地图</span></button>
+        <button id="ask-companion" class="companion-trigger" aria-label="与路清河交谈" title="与路清河交谈"><span aria-hidden="true">…</span></button>
+        <nav class="study-navigation" aria-label="书房导航"><button data-chapters>篇目</button><span>·</span><button data-episode="opening">朱笔初醒</button><span>·</span><button data-episode="handover">殿外闻语</button><span>·</span><button id="open-influence" hidden>各方势力</button><button data-home>返回封面</button></nav>
+      </div>
+    </section>
+
+    <section id="faction-map" class="screen faction-map" hidden aria-labelledby="map-title">
+      <div class="map-stage">
+        <img class="map-art" src="assets/factions-map-v1.jpeg" alt="山川、河道与城镇相连的青绿山水舆图">
+        <button id="open-mechanics-help" class="map-help-button" aria-label="查看机制补充说明" title="机制补充说明">?</button>
+        <header class="map-heading"><span>山 川 舆 图</span><h2 id="map-title">天下势局</h2><p>家族随剧情逐步显现</p></header>
+        <button id="close-map" class="map-back">← 返回书房</button>
+        <button id="lu-family-marker" class="family-marker" hidden aria-label="陆家，查看家族介绍"><i aria-hidden="true"></i><span>陆家</span></button>
+        <aside id="map-mechanisms" class="map-mechanisms" hidden aria-label="四项机制数值"></aside>
+        <article id="family-profile" class="family-profile" hidden aria-labelledby="family-title">
+          <button id="close-family" class="family-close" aria-label="关闭家族介绍">×</button>
+          <p class="family-kicker">漕 运 · 仓 储</p><h3 id="family-title">陆家</h3><div class="family-rule"></div>
+          <p>陆家掌漕运与仓储，通州仓场的账由漕运总督陆廷芳掌管。</p>
+          <dl><dt>已知人物</dt><dd>陆廷芳 · 漕运总督</dd><dt>所涉事务</dt><dd>漕粮转运、仓储与商路核验</dd></dl>
+          <section id="family-values" class="family-values" hidden aria-label="势力数值"><div><span>势力值</span><strong id="family-value"></strong><span id="family-status" class="family-status"></span></div><div class="faction-meter"><i id="family-meter"></i></div><p id="family-risk" hidden>势力超过80%，需警惕权力膨胀。</p><small id="governance-value"></small></section>
+          <p class="family-record">商税新例试行三个月后，陆廷芳请见，提出码头等候与漕粮误期的顾虑。</p>
+          <button id="resume-map-story" class="map-continue" hidden>返回奏折 →</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="chapter" class="screen chapter" hidden aria-labelledby="chapter-name">
+      <button class="back-button" data-home><span aria-hidden="true">←</span> 返回封面</button>
+      <div class="chapter-ornament" aria-hidden="true"></div>
+      <div class="chapter-inner">
+        <p class="chapter-index">第 一 篇</p>
+        <h2 id="chapter-name">初习朱批</h2>
+        <div class="chapter-divider" aria-hidden="true">◆</div>
+        <p class="chapter-place">朱笔初醒 · 书房</p>
+        <div class="chapter-buttons"><button class="gold-button" data-study>进入书房 <span aria-hidden="true">→</span></button><button id="begin" class="episode-link">展开序章 <span>朱笔初醒 →</span></button><button class="episode-link" data-episode="handover">殿外闻语 <span>交权过渡剧情 →</span></button></div>
+        <p class="draft-note">开篇与交权节点可分别体验</p>
+      </div>
+    </section>
+
+    <section id="story" class="screen story" hidden aria-label="剧情场景" data-place="study">
+      <div class="study-scenery" aria-hidden="true"><div class="study-window"><div class="mountain mountain-back"></div><div class="mountain"></div><div class="window-lattice"></div></div><div class="study-table"></div></div>
+      <div class="entrance-scenery" aria-hidden="true"></div>
+      <div class="story-vignette" aria-hidden="true"></div>
+      <div class="scene-label"><span id="scene-seal">序</span><div><b id="scene-place">书房</b><small id="scene-stage">初习朱批</small></div></div>
+      <button class="back-button" id="back-chapters"><span aria-hidden="true">←</span> 返回篇目</button>
+      <div class="story-tools"><button id="instant-text" aria-pressed="false">文字逐字</button></div>
+      <button id="open-history" class="history-launch" type="button" aria-label="剧情回看，查看之前的对话" title="查看之前的剧情对话">
+        <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M10 8h21v25H10V8ZM10 8C5 8 5 14 10 14M10 27C4 27 4 33 10 33M15 14h10M15 19h10M15 24h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M32 6a10 10 0 0 1 3 17M32 6h5M32 6l1 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>剧情回看</span>
+      </button>
+      <p class="scene-atmosphere" id="scene-atmosphere"></p><figure id="memorial-visual" class="memorial-visual" hidden><img alt="" hidden><figcaption></figcaption></figure>
+      <img id="player-character" class="player-character" src="assets/hero-female-transparent-v1.png" alt="主控立绘" hidden>
+      <img class="companion" src="assets/companion-female-transparent-v1.png" alt="女伴读，身着蓝白花纹衣裙，手持卷轴，睁眼看向你">
+      <div class="dialogue-box">
+        <div class="speaker"><span id="speaker">路清河</span><small id="voice-origin"></small></div>
+        <p id="dialogue" aria-live="polite" aria-atomic="true"></p>
+        <div class="dialogue-bottom"><div class="dialogue-position"><span id="dialogue-count"></span><span id="episode-label"></span></div><div class="dialogue-controls"><button id="previous">上一句</button><button id="next">继续 <span aria-hidden="true">◆</span></button></div></div>
+      </div>
+      <div class="scene-curtain" id="scene-curtain" aria-hidden="true"><span>回到书房</span></div>
+    </section>
+
+    <section id="preview-end" class="screen preview-end" hidden aria-labelledby="end-heading">
+      <div class="chapter-inner"><p class="chapter-index">朱 笔 初 醒</p><h2 id="end-heading">御笔初执</h2><p class="end-copy" id="end-copy"></p><p class="draft-note">另一段时光，母皇的一句话，让你明白了她的用意。</p><div class="chapter-buttons"><button class="gold-button" data-episode="handover">进入殿外闻语 <span aria-hidden="true">→</span></button><button class="episode-link" data-chapters>返回篇目</button></div></div>
+    </section>
+
+    <section id="influence" class="screen influence" hidden aria-labelledby="influence-heading">
+      <button class="back-button" data-chapters><span aria-hidden="true">←</span> 返回篇目</button>
+      <div class="influence-inner"><p class="chapter-index">新 的 视 野</p><h2 id="influence-heading">知人，亦知其势</h2><p class="influence-quote">“事情办成之后，她手中会多出什么？<br>朝中又有谁能约束她？”</p><div class="influence-grid" id="influence-dimensions"></div><div class="faction-scale" aria-label="势力值分级"><b>势力值</b><span>80及以上 · 膨胀（红色预警，别家开始串联）</span><span>60—79 · 强势</span><span>40—59 · 常态</span><span>20—39 · 偏弱</span><span>20以下 · 边缘（可能被吞并或退出朝局）</span></div><p class="influence-unlocked"><span aria-hidden="true">◆</span> 数值系统 · 已解锁</p><p class="draft-note">下一步：选择能办事的人，也为她们立下约束。</p><div class="chapter-buttons"><button id="continue-influence" class="gold-button">继续 <span aria-hidden="true">→</span></button><button class="episode-link" data-episode="handover">重温殿外闻语</button></div></div>
+    </section>
+    <div id="transition" aria-hidden="true"><span>御</span></div>
+  </main>
+  <dialog id="memorial-panel" class="study-panel memorial-panel memorial-decision" aria-labelledby="memorial-title"><header class="panel-header"><button class="panel-close" data-close-panel aria-label="关闭奏折">× 关闭</button><span>第一年 · 春 · 奏折一</span></header>
+<button id="recall-memorial-hints" class="decision-companion" aria-label="点击路清河，回顾三条提示" aria-expanded="false" aria-controls="memorial-hint-review"><img src="assets/companion-female-transparent-v1.png" alt="路清河"><span>…</span></button>
+<section id="memorial-hint-review" class="memorial-hint-review" aria-label="奏折提示回顾" hidden><button id="close-memorial-hints" aria-label="关闭提示回顾">×</button><h2>方才所言</h2><div id="memorial-hints"></div></section>
+<div class="panel-content"><p class="paper-kicker">奏折一 · 春汛</p><h2 id="memorial-title">春汛将至，派谁督修河堤</h2><p class="memorial-summary">青川河堤多处损坏，距春汛只剩二十日，需尽快确定督修人选。</p><button id="consult-companion" class="consult-link">先向路清河请教 <span aria-hidden="true">↗</span></button><button id="replay-memorial" class="consult-link">重看奏折</button><form id="policy-form"><fieldset><legend>你的学习建议</legend><div id="policy-options"></div></fieldset><button id="submit-policy" class="paper-submit" type="submit" disabled>呈上建议</button></form></div><footer class="author-credit">作者：赵芮、申圣杰、刘柏漪</footer></dialog>
+  <dialog id="companion-panel" class="study-panel companion-panel" aria-labelledby="companion-panel-title"><header class="panel-header"><button class="panel-close" data-close-panel aria-label="关闭伴读对话">× 关闭</button><span>伴读 · 请教</span></header><div class="panel-content"><p class="paper-kicker">路清河</p><h2 id="companion-panel-title">殿下想先问什么？</h2><p class="companion-greeting">这道奏折，既要看治水的本事，也要看钱粮该交给谁。</p><div id="companion-questions"></div><button id="return-to-memorial" class="paper-submit">回到奏折</button></div></dialog>
+  <dialog id="mechanics-help" class="mechanics-help" aria-labelledby="mechanics-help-title">
+    <button id="close-mechanics-help" class="mechanics-help-close" aria-label="关闭机制补充说明">×</button>
+    <h2 id="mechanics-help-title">机制补充说明</h2>
+    <section><h3>机制值 · 0—100</h3><dl>
+      <dt>0—20 · 崩溃边缘</dt><dd>财政到这里发不出俸禄，治理到这里政令不出京，军事到这里边防空虚。</dd>
+      <dt>21—40 · 紧张</dt><dt>41—60 · 平稳</dt><dt>61—80 · 良好</dt><dt>81—100 · 鼎盛</dt>
+    </dl></section>
+    <section><h3>增减幅度</h3><ul>
+      <li>常规奏折：±2到±4。</li>
+      <li>重大人事、大案：±5到±8。</li>
+      <li>季末剧情里的一句话，可以给±3到±6，但不直接显示数字。</li>
+    </ul></section>
+    <section><h3>势力值</h3><dl>
+      <dt>80及以上 · 膨胀</dt><dd>红色预警，别家会开始串联。</dd>
+      <dt>60—79 · 强势</dt><dt>40—59 · 常态</dt><dt>20—39 · 偏弱</dt>
+      <dt>20以下 · 边缘</dt><dd>可能被吞并，也可能退出朝局。</dd>
+    </dl></section>
+  </dialog>
+  <dialog id="history-dialog" class="history-dialog" aria-labelledby="history-heading"><header><div><small id="history-episode"></small><h2 id="history-heading">前言往语</h2></div><button id="close-history" aria-label="关闭对话回看">关闭 ×</button></header><ol id="history-lines"></ol></dialog>
+  <div id="day-cycle" class="day-cycle" hidden aria-hidden="true"></div>
+  <button id="continue-all" class="continue-all" type="button">快进 <span aria-hidden="true">→</span></button>
+  <footer class="author-credit">作者：赵芮、申圣杰、刘柏漪</footer>
+  <button id="music-retry" class="music-retry" hidden>点击播放结尾音乐</button>
+  <audio id="map-ending-music" src="assets/map-ending-theme-audio-v2.mp3" preload="auto" loop></audio>
+  <audio id="memorial-music" src="assets/memorial-theme-v1.mp3" preload="auto" loop></audio>
+  <audio id="opening-music" src="assets/opening-theme-v1.mp3" preload="auto" loop></audio>
+  <script type="module" src="app.js?v=20261108-forward-label-19"></script>
+</body>
+</html>

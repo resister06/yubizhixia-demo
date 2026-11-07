@@ -1,0 +1,13 @@
+{
+  "name": "御笔之下",
+  "version": "1.0.0",
+  "date": "2026-11-08",
+  "authors": [
+    "赵芮",
+    "申圣杰",
+    "刘柏漪"
+  ],
+  "entry": "index.html",
+  "platform": "desktop",
+  "build_required": false
+}

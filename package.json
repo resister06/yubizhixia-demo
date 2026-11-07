@@ -1,0 +1,11 @@
+{
+  "name": "yu-bi-zhi-xia",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "check": "node --check app.js && node --check faction-state.js && node --check identity-effects.js && node --check rich-text.js && node --check story-data.js && node --check study.js && node --check title-particles.js && node --check server.mjs",
+    "start": "node server.mjs"
+  }
+}
